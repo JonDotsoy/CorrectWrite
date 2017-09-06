@@ -24,3 +24,5 @@ Servir como una herramienta para aquellas personas que desean mejorar su ortogra
 - [ ] Programar lógica de la aplicación
     - [ ] Buscador encargado de escanear las palabras
 - [ ] Publicar en github
+
+
