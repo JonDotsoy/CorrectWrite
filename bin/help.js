@@ -105,7 +105,7 @@ async function RUN () {
               await DB.set(['data', 'urls', urld.url, '_context'], contextBody)
               await DB.set(['data', 'urls', urld.url, '_pulled'], true)
               if (argv.V) log`contextBody\n${contextBody}`
-              log`[${Math.round(100*(n/urlsTotal))}% (#${n})] pulled ${urld.url}`
+              log`[${Math.round(100*(n/urlsTotal))}% (#${n})] pulled ${contextBody.title}`
             }
           }
 
@@ -159,10 +159,10 @@ async function requestDefFromPage (url) {
   const cur = htmlCheerioToJSON($('#cur'), $)
 
   return {
-    // title,
+    title,
     txtl,
-    txtr
-    // cur,
+    txtr,
+    cur,
   }
 }
 
