@@ -30,6 +30,7 @@ if (argv.V) log`workdir: ${workdir}`
 const DB = new DBQuery(path.resolve(workdir, 'data.json'))
 
 const _ = argv._
+
 const configs = {
   sitemap: 'http://www.como-se-escribe.com/sitemap.xml'
 }
@@ -38,9 +39,9 @@ async function RUN () {
   switch (_.shift()) {
     case 'data': {
       switch (_.shift()) {
-        case 'pull-list': {
+        case 'fetch-list': {
           await DB.ready
-          const data = await pullDataSitemap()
+          const data = await fetchDataSitemap()
           log`Ok download the sitemap`
           await DB.set('data.urls', data)
           log`Save ${ Object.keys( await DB.get('data.urls') ).length } urls`
@@ -49,13 +50,13 @@ async function RUN () {
         case 'ls':
         case 'list': {
           await DB.ready
-          const urls = await queryURLS(DB, argv.n)
+          const sites = await queryURLS(DB, argv.n)
 
-          log`${Object.keys(urls).length} urls to inspect`
+          log`${Object.keys(sites).length} sites to inspect`
 
-          for (const urlk in urls) {
-            const urld = urls[urlk]
-            log`href: ${urld.url} pulled: ${urld._pulled === true}`
+          for (const indexSite in sites) {
+            const site = sites[indexSite]
+            log`href: ${site.url} pulled: ${site._pulled === true}`
           }
 
           break
@@ -63,49 +64,43 @@ async function RUN () {
         case 'i':
         case 'info': {
           await DB.ready
-
-          const urls = await DB.get('data.urls')
-
-          const urlsTotal = Object.keys(urls).length
-
-          const urlsCompletes = [0, ...Object.keys(urls)]
-          .reduce((c, keyurl) => {
-            if (urls[keyurl]._pulled) {
-              return c + 1
-            }
-            return c
-          })
-
-          log`Urls: ${urlsTotal}`
-          log`Urls Ok: ${urlsCompletes}`
-          log`Urls No Ok: ${urlsTotal - urlsCompletes}`
+          const sites = await DB.get('data.urls')
+          const sitesNTotal = Object.keys(sites).length
+          const initialCount = 0
+          const urlsCompletes = [initialCount, ...Object.keys(sites)]
+            .reduce((count, indexSite) => {
+              if (sites[indexSite]._pulled) return count + 1
+              return count
+            })
+          log`Sites: ${sitesNTotal}`
+          log`Sites fetched: ${urlsCompletes}`
+          log`Sites not fetched: ${sitesNTotal - urlsCompletes}`
 
           break
         }
-        case 'scan-urls': {
+        case 'fetch-sites': {
           await DB.ready
+          const sites = await queryURLS(DB, argv.n)
+          const sitesNTotal = Object.keys(sites).length
+          log`${sitesNTotal} sites to inspect`
+          if (argv.V) log`Sites:\n${sites}`
 
-          const urls = await queryURLS(DB, argv.n)
+          // Initial Count
+          let count = 0
+          for (const indexSite in sites) {
+            const site = sites[indexSite]
 
-          const urlsTotal = Object.keys(urls).length
+            count += 1
 
-          log`${urlsTotal} urls to inspect`
-
-          if (argv.V) log`Detail URLS\n${urls}`
-
-          let n = 0
-          for (const urlk in urls) {
-            const urld = urls[urlk]
-            n += 1
-            if (urld._pulled === true) {
-              log`[${Math.round(100*(n/urlsTotal))}% (#${n})] skip ${urld.url}`
+            if (site._pulled === true) {
+              log`[${Math.floor(100*(count/sitesNTotal))}% (#${count})] skip ${site._context.title} (${site.url})`
             } else {
-              log`[${Math.round(100*(n/urlsTotal))}% (#${n})] pull ${urld.url}`
-              const contextBody = await requestDefFromPage(urld.url)
-              await DB.set(['data', 'urls', urld.url, '_context'], contextBody)
-              await DB.set(['data', 'urls', urld.url, '_pulled'], true)
+              log`[${Math.floor(100*((count - 1)/sitesNTotal))}% (#${count})] fetch ${site.url}`
+              const contextBody = await requestDefFromPage(site.url)
+              await DB.set(['data', 'urls', site.url, '_context'], contextBody)
+              await DB.set(['data', 'urls', site.url, '_pulled'], true)
               if (argv.V) log`contextBody\n${contextBody}`
-              log`[${Math.round(100*(n/urlsTotal))}% (#${n})] pulled ${contextBody.title}`
+              log`[${Math.floor(100*(count/sitesNTotal))}% (#${count})] complet fetch ${contextBody.title}`
             }
           }
 
@@ -134,7 +129,7 @@ async function queryURLS (DB, n) {
 /**
  * get the sitemap with all words
  */
-async function pullDataSitemap () {
+async function fetchDataSitemap () {
   const {body} = await requestFromURL(configs.sitemap)
 
   const $ = cheerio.load(body)
