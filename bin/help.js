@@ -28,7 +28,9 @@ const {DBQuery} = require('../lib/DBQuery')
 if (argv.V) log`workdir: ${workdir}`
 
 const DB = new DBQuery(path.resolve(workdir, 'data.json'))
+const DBClear = new DBQuery(path.resolve(workdir, 'data.clear.json'), {immediateWriting: false, outputFormatted: null})
 
+const dbReady = Promise.all([DB.ready, DBClear.ready])
 const _ = argv._
 
 const configs = {
@@ -40,16 +42,16 @@ async function RUN () {
     case 'data': {
       switch (_.shift()) {
         case 'fetch-list': {
-          await DB.ready
+          await dbReady
           const data = await fetchDataSitemap()
           log`Ok download the sitemap`
           await DB.set('data.urls', data)
-          log`Save ${ Object.keys( await DB.get('data.urls') ).length } urls`
+          log`Save ${Object.keys(await DB.get('data.urls')).length} urls`
           break
         }
         case 'ls':
         case 'list': {
-          await DB.ready
+          await dbReady
           const sites = await queryURLS(DB, argv.n)
 
           log`${Object.keys(sites).length} sites to inspect`
@@ -63,7 +65,7 @@ async function RUN () {
         }
         case 'i':
         case 'info': {
-          await DB.ready
+          await dbReady
           const sites = await DB.get('data.urls')
           const sitesNTotal = Object.keys(sites).length
           const initialCount = 0
@@ -79,7 +81,7 @@ async function RUN () {
           break
         }
         case 'fetch-sites': {
-          await DB.ready
+          await dbReady
           const sites = await queryURLS(DB, argv.n)
           const sitesNTotal = Object.keys(sites).length
           log`${sitesNTotal} sites to inspect`
@@ -93,16 +95,65 @@ async function RUN () {
             count += 1
 
             if (site._pulled === true) {
-              log`[${Math.floor(100*(count/sitesNTotal))}% (#${count})] skip ${site._context.title} (${site.url})`
+              log`[${Math.floor(100 * (count / sitesNTotal))}% (#${count})] skip ${site._context.title} (${site.url})`
             } else {
-              log`[${Math.floor(100*((count - 1)/sitesNTotal))}% (#${count})] fetch ${site.url}`
+              log`[${Math.floor(100 * ((count - 1) / sitesNTotal))}% (#${count})] fetch ${site.url}`
               const contextBody = await requestDefFromPage(site.url)
               await DB.set(['data', 'urls', site.url, '_context'], contextBody)
               await DB.set(['data', 'urls', site.url, '_pulled'], true)
               if (argv.V) log`contextBody\n${contextBody}`
-              log`[${Math.floor(100*(count/sitesNTotal))}% (#${count})] complet fetch ${contextBody.title}`
+              log`[${Math.floor(100 * (count / sitesNTotal))}% (#${count})] complet fetch ${contextBody.title}`
             }
           }
+
+          break
+        }
+        case 'sites': {
+          let search = _.shift()
+          if (!search) throw new Error('"search" is not defined')
+          search = `${search.replace(/([^A-Z]+)/gi, '.+')}`
+
+          await dbReady
+
+          const sites = await DB.get('data.urls')
+
+          for (const indexSite in sites) {
+            const site = sites[indexSite]
+            if ((new RegExp(search, 'i')).test(site._context.title)) {
+              console.log(site._context.title)
+              console.log(site.url)
+            }
+          }
+          break
+        }
+
+        case 'clear': {
+          await dbReady
+          await DBClear.clear()
+
+          const sites = await queryURLS(DB, argv.n)
+
+          let count = 0
+          const urls = {}
+
+          for (const indexSite in sites) {
+            const site = sites[indexSite]
+
+            if (filterIsSiteValid(site)) {
+              count += 1
+              if (argv.V) log`valid ${site._context.title}`
+              const newSite = clearSite(site)
+              await DBClear.set(['data', 'urls', newSite.id], newSite)
+              urls[site.url] = site
+            } else {
+              if (argv.V) log`skip ${site._context.title} this is not valid`
+            }
+          }
+
+          await DBClear.set(['data','indexSearch'], getListIndexSearch())
+
+          await DBClear.write()
+          log`${count} sites was transferred`
 
           break
         }
@@ -110,6 +161,34 @@ async function RUN () {
       break
     }
   }
+}
+
+let n = 0
+const listIndexSearch = []
+function getListIndexSearch () { return listIndexSearch }
+
+function clearSite (site) {
+  n += 1
+  id = `$${n}`
+
+  const {txtl, txtr, cur} = site._context
+
+  for (const el of [...txtl, ...txtr, ...cur]) {
+    if (el.type === 'tag' && el.name === 'h2') {
+      listIndexSearch.push([el._text.toLocaleLowerCase(), id])
+    }
+  }
+
+  return {id, ...site}
+}
+
+function filterIsSiteValid (site) {
+  if (/^http\:\/\/www.como-se-escribe\.com\/lista\-palabras\//i.test(site.url)) return false
+  if (/^http\:\/\/www.como-se-escribe\.com\/numeros\//i.test(site.url)) return false
+  if (/^http\:\/\/www.como-se-escribe\.com\/lista\-nombres\//i.test(site.url)) return false
+  if (/^http\:\/\/www.como-se-escribe\.com\/buscador\//i.test(site.url)) return false
+  if (/^http\:\/\/www.como-se-escribe\.com\/$/i.test(site.url)) return false
+  return true
 }
 
 async function queryURLS (DB, n) {
@@ -157,7 +236,7 @@ async function requestDefFromPage (url) {
     title,
     txtl,
     txtr,
-    cur,
+    cur
   }
 }
 
