@@ -2,6 +2,7 @@
 
 const log = require('../lib/customLog')
 const {URL} = require('url')
+const chalk = require('chalk')
 const fs = require('fs')
 const http = require('http')
 const cheerio = require('cheerio')
@@ -157,10 +158,76 @@ async function RUN () {
 
           break
         }
+
+        case 'search': {
+          await dbReady
+          const word = _.shift()
+
+          const indexSearch = await DBClear.get('data.indexSearch')
+          const sites = await DBClear.get('data.urls')
+
+          console.log(
+            indexSearch
+              .filter(([e]) => (e.search(word.toLocaleLowerCase()) !== -1))
+              .map(([w,id]) => `${sites[id]._context.title} (${w})`)
+          )
+
+          break
+        }
       }
+
+      break
+    }
+    case 's':
+    case 'search': {
+      await dbReady
+      const word = _.shift()
+      const indexSearch = await DBClear.get('data.indexSearch')
+
+      async function loadAllIndexsables () {
+        const sites = []
+
+        const sitesResult = indexSearch.filter(([value]) => (
+          value === word.toLocaleLowerCase()
+        ))
+
+        for (const resultElement of sitesResult) {
+          const [,idSite] = resultElement
+
+          sites.push(await DBClear.get(['data', 'urls', idSite]))
+        }
+
+        return sites
+      }
+
+      const sites = await loadAllIndexsables()
+
+      for (const site of sites) {
+        const url = site.url
+        const title = site._context.title
+
+        // Print info
+        log(`${chalk.green(title)}\n${printTextSite(site)}`)
+      }
+
       break
     }
   }
+}
+
+function printTextSite (site) {
+  const {txtl, txtr} = site._context
+
+  return [...txtl, ...txtr]
+    .map((elm) => {
+      if (elm.type === 'tag' && elm.name === 'h2') {
+        return `${chalk.green(elm._text)}:`
+      } else {
+        return elm._text
+      }
+    })
+    .map(e => `\t${e}`)
+    .join('\n')
 }
 
 let n = 0
