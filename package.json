@@ -9,14 +9,17 @@
     "node": ">= 8.3.0"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "watch": "gulp watch"
   },
   "keywords": [],
   "author": "Jonathan Delgado <hi@jon.soy> (https://jon.soy/)",
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.26.0",
     "browser-sync": "^2.18.13",
@@ -28,6 +31,7 @@
     "minimist": "^1.2.0",
     "mocha": "^3.5.0",
     "react": "^15.6.1",
+    "react-dom": "^15.6.1",
     "react-render": "^1.2.1",
     "styled-components": "^2.1.2",
     "webpack-stream": "^4.0.0"
