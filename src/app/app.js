@@ -3,6 +3,15 @@ const {Router, RouterManager} = require('../router')
 const {Home} = require('../home/home')
 const {Page} = require('../page/page')
 const {NotFound} = require('../notFound/notFound')
+const {injectGlobal} = require('styled-components')
+
+injectGlobal`
+  @import url('https://fonts.googleapis.com/css?family=Roboto');
+  body {
+    margin: 0px;
+    padding: 0px;
+  }
+`
 
 class App extends React.Component {
   render () {
