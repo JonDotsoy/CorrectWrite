@@ -40,6 +40,14 @@ const configs = {
 
 async function RUN () {
   switch (_.shift()) {
+    case 'print': {
+      await dbReady
+      const data = await DBClear.get('data')
+
+      console.log(data)
+
+      break
+    }
     case 'data': {
       switch (_.shift()) {
         case 'fetch-list': {

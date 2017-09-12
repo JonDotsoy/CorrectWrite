@@ -25,6 +25,22 @@ Servir como una herramienta para aquellas personas que desean mejorar su ortogra
     - [ ] Buscador encargado de escanear las palabras
 - [ ] Publicar en github
 
+### Estructura de base de datos
+
+- `words<id>` (`object`)
+    + `urls` (`object.<id>`)
+        * `id` (`string`)
+        * `url` (`string`)
+        * `_context` (`object`)
+        * `_pulled` (`boolean`)
+    + `indexSearch` (`Array[['word','id']]`)
+        * `word` (`string`)
+        * `id` (`string`)
+- `Docs<id>` (`object`)
+    + `id` (`string`)
+    + `title` (`string`)
+    + `lastEdit` (`Date`)
+    + `content` (`string`)
 
 ### Arbol de componentes
 
@@ -68,4 +84,8 @@ Servir como una herramienta para aquellas personas que desean mejorar su ortogra
 <a name="#component-doclist"></a>
 #### `DocList` Muestra un listado con todos los documentos creados
 
+__Propiedades:__
 
+| Propiedad | Descripción |
+|-----------|-------------|
+|           |             |
