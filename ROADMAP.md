@@ -36,11 +36,19 @@ Servir como una herramienta para aquellas personas que desean mejorar su ortogra
     + `indexSearch` (`Array[['word','id']]`)
         * `word` (`string`)
         * `id` (`string`)
-- `Docs<id>` (`object`)
+- `docs<id, Doc>` (`object`)
     + `id` (`string`)
     + `title` (`string`)
     + `lastEdit` (`Date`)
     + `content` (`string`)
+
+<a name="type-doc"></a>
+#### Doc Type
+
+* `id` (`string`)
+* `title` (`string`)
+* `lastEdit` (`Date`)
+* `content` (`string`)
 
 ### Arbol de componentes
 
@@ -73,19 +81,21 @@ Servir como una herramienta para aquellas personas que desean mejorar su ortogra
 
 ### Componentes
 
+* [Navbar](#component-navbar)
 * [DocList](#component-doclist)
-* [Navbar][#component-navbar]
-* [DocItem][#component-docitem]
-* [DocEditor][#component-doceditor]
-* [TextEditor][#component-texteditor]
-* [Settings][#component-settings]
-* [WordInspect][#component-wordinspect]
+* [DocItem](#component-docitem)
+* [DocEditor](#component-doceditor)
+* [PreviewWordInspect](#component-previewwordinspect)
+* [TextEditor](#component-texteditor)
+* [WordInspect](#component-wordinspect)
+* [Settings](#component-settings)
 
-<a name="#component-doclist"></a>
-#### `DocList` Muestra un listado con todos los documentos creados
+<a name="component-doclist"></a>
+#### Pagina `DocList` Muestra un listado con todos los documentos creados
 
-__Propiedades:__
+__Propiedades__
 
-| Propiedad | Descripción |
-|-----------|-------------|
-|           |             |
+* `docs` (`object`.<[Doc][type-doc]`.id`, [Doc][type-doc]>)
+
+
+[type-doc]: #type-doc
