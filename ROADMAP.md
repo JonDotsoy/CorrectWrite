@@ -43,14 +43,28 @@ Servir como una herramienta para aquellas personas que desean mejorar su ortogra
     + `content` (`string`)
 
 <a name="type-doc"></a>
-#### Doc Type
+#### `Doc` Type
+
+__Propiedades__
 
 * `id` (`string`)
 * `title` (`string`)
 * `lastEdit` (`Date`)
 * `content` (`string`)
 
-### Arbol de componentes
+
+<a name="type-setting"></a>
+#### `Setting` Type
+
+__Propiedades__
+* `id` (`string`)
+* `systemScoppe` (`"local"`||`"account"`)
+* `type` (`string`)
+* `value` (`any`)
+* `options` (`Array<string>`)
+
+
+### Árbol de componentes
 
 > __Componentes por Pagina__
 
@@ -81,14 +95,14 @@ Servir como una herramienta para aquellas personas que desean mejorar su ortogra
 
 ### Componentes
 
-* [Navbar](#component-navbar)
 * [DocList](#component-doclist)
-* [DocItem](#component-docitem)
 * [DocEditor](#component-doceditor)
+* [Settings](#component-settings)
+* [Navbar](#component-navbar)
+* [DocItem](#component-docitem)
 * [PreviewWordInspect](#component-previewwordinspect)
 * [TextEditor](#component-texteditor)
 * [WordInspect](#component-wordinspect)
-* [Settings](#component-settings)
 
 <a name="component-doclist"></a>
 #### Pagina `DocList` Muestra un listado con todos los documentos creados
@@ -96,3 +110,19 @@ Servir como una herramienta para aquellas personas que desean mejorar su ortogra
 __Propiedades__
 
 * `docs` (`object`.<[Doc](#type-doc)`.id`, [Doc](#type-doc)>)
+
+<a name="component-doceditor"></a>
+#### Pagina `DocEditor` Esta pagina visualiza/edita una documento
+
+__Propiedades__
+
+* `doc` ([Doc](#type-doc))
+
+
+<a name="component-settings"></a>
+#### Pagina `Settings` Muestra las configuraciones de la aplicación
+
+__Propiedades__
+
+* `settings` (`Array`<[`Setting`](#type-setting)>)
+
