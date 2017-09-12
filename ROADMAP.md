@@ -28,15 +28,22 @@ Servir como una herramienta para aquellas personas que desean mejorar su ortogra
 ### Estructura de base de datos
 
 - `words` (`object`)
-    + `urls` (`object.<id>`)
-        * `id` (`string`)
-        * `url` (`string`)
-        * `_context` (`object`)
-        * `_pulled` (`boolean`)
+    + `urls` (`object<id,`[`Word`](#type-word)`>`)
     + `indexSearch` (`Array[[word, id]]`)
         * `word` (`string`)
         * `id` (`string`)
 - `docs` (`object.<id,`[`Doc`](#type-doc)`>`)
+
+<a name="type-word"></a>
+#### `Word` Type
+
+__Propiedades__
+
+* `id` (`string`)
+* `url` (`string`)
+* `_context` (`object`)
+* `_pulled` (`boolean`)
+
 
 <a name="type-doc"></a>
 #### `Doc` Type
@@ -121,4 +128,12 @@ __Propiedades__
 __Propiedades__
 
 * `settings` (`Array`<[`Setting`](#type-setting)>)
+
+<a name="component-wordinspect"></a>
+#### Pagina `WordInspect` Muestra la definición de una palabra
+
+__Propiedades__
+
+* `word` ([`Word`](#type-word))
+
 
