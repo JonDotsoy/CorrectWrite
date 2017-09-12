@@ -106,14 +106,14 @@ __Propiedades__
 * [TextEditor](#component-texteditor)
 
 <a name="component-doclist"></a>
-#### Pagina `DocList` Muestra un listado con todos los documentos creados
+#### Componente Pagina `DocList` Muestra un listado con todos los documentos creados
 
 __Propiedades__
 
 * `docs` (`object.<id,`[`Doc`](#type-doc)`>`)
 
 <a name="component-doceditor"></a>
-#### Pagina `DocEditor` Esta pagina visualiza/edita una documento
+#### Componente Pagina `DocEditor` Esta pagina visualiza/edita una documento
 
 __Propiedades__
 
@@ -121,21 +121,21 @@ __Propiedades__
 
 
 <a name="component-settings"></a>
-#### Pagina `Settings` Muestra las configuraciones de la aplicación
+#### Componente Pagina `Settings` Muestra las configuraciones de la aplicación
 
 __Propiedades__
 
 * `settings` (`Array`<[`Setting`](#type-setting)>)
 
 <a name="component-wordinspect"></a>
-#### Pagina `WordInspect` Muestra la definición de una palabra
+#### Componente Pagina `WordInspect` Muestra la definición de una palabra
 
 __Propiedades__
 
 * `word` ([`Word`](#type-word))
 
 <a name="component-navbar"></a>
-#### `Navbar` componente
+#### Componente `Navbar`
 
 __Propiedades__
 
@@ -144,7 +144,7 @@ __Propiedades__
 * `menu` (`Array[[title: string, onClick: function]]`)
 
 <a name="component-docitem"></a>
-#### `DocItem` Componente
+#### Componente `DocItem`
 
 __Propiedades__
 
