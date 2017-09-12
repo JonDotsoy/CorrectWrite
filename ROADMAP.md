@@ -57,7 +57,7 @@ Servir como una herramienta para aquellas personas que desean mejorar su ortogra
 
 ### Componentes
 
-* [DocList][#component-doclist]
+* [DocList](#component-doclist)
 * [Navbar][#component-navbar]
 * [DocItem][#component-docitem]
 * [DocEditor][#component-doceditor]
