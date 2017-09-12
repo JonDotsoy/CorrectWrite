@@ -36,17 +36,17 @@ class RouterManager extends React.Component {
     )
 
     const SelectableRouter = props.children.find(
-      routerCpnt => (routerCpnt.props.hash && (routerCpnt.props.hash instanceof RegExp) && routerCpnt.props.hash.test(props.hashLocation) === true)
+      routerCpnt => (routerCpnt.props.path && (routerCpnt.props.path instanceof RegExp) && routerCpnt.props.path.test(props.hashLocation) === true)
     )
 
     if (SelectableRouter) return SelectableRouter
-    return DefaultRouter
+    return DefaultRouter || null
   }
 }
 
 module.exports.Router = connect()(Router)
 module.exports.RouterManager = connect(
-  store => ({hashLocation: getHashLocation()}),
+  state => ({hashLocation: state.hashLocation || getHashLocation()}),
   dispatch => ({
     updateHashLocation: (hashLocation) => {
       dispatch({
@@ -58,5 +58,8 @@ module.exports.RouterManager = connect(
 )(RouterManager)
 
 function getHashLocation () {
-  return location.hash.replace(/^#?/, '')
+  return location.hash.replace(/^#?!?/, '')
 }
+
+
+module.exports.getHashLocation = getHashLocation

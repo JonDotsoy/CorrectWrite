@@ -26,3 +26,35 @@ Servir como una herramienta para aquellas personas que desean mejorar su ortogra
 - [ ] Publicar en github
 
 
+### Arbol de componentes
+
+> __Componentes por Pagina__
+
+* `DocList` (path: `/`): Listado de Documentos
+    - `Navbar`
+        + `title`: Writings
+        + `menu[]`
+            * `title`: Settings
+            * `onClick`: Go to `/settings` url.
+    - `DocItem[]`
+        + `title`
+        + `lastEdit` (`date`)
+* `DocEditor` (path: `/p/:docKey`): Documento
+    - `Navbar`
+        + `onClickBack`: go to `/` url
+        + `title`: `doc.title`
+    - `TextEditor`
+        + `value`: `doc.content`
+        + `PreviewWordInspect`
+* `Settings` (path: `/settings`): Configuraciones
+    - `Navbar`
+        + `onClickBack`: go to `/` url
+* `WordInspect` (path: `/w/:wordKey`)
+    - `Navbar`
+        + `onClickBack`: go to `/p/:docKey` url
+        + `title`: `word`
+    - `content`: `word.spec`
+
+### Componentes
+
+#### `DocList` Muestra un listado con todos los documentos creados

@@ -1,4 +1,5 @@
 const React = require('react')
+const {getHashLocation} = require('./router')
 const ReactDOM = require('react-dom')
 const {App} = require('./app/app')
 const {reducer} = require('./reducer')
@@ -6,7 +7,7 @@ const {createStore} = require('redux')
 const {connect, Provider} = require('react-redux')
 
 const store = createStore(reducer, {
-  hashLocation: '',
+  hashLocation: getHashLocation(),
   writingsList: [ 'a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8', 'a9' ],
   writings: {
     'a1': { id: 'a1', title: 'Write 0', lastEdit: new Date(2017, 8, 11, 24, 60 - 20, 60, 1000) },

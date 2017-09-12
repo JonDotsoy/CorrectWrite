@@ -1,6 +1,5 @@
+const { Router, Route, hashHistory } = require('react-router')
 const React = require('react')
-const {connect} = require('react-redux')
-const {Router, RouterManager} = require('../router')
 const {Home} = require('../home/home')
 const {Page} = require('../page/page')
 const {NotFound} = require('../notFound/notFound')
@@ -14,16 +13,12 @@ injectGlobal`
   }
 `
 
-class App extends React.Component {
-  render () {
-    return (
-      <RouterManager>
-        <Router hash={/^!?\/p\/(.+)$/i} component={Page}></Router>
-        <Router hash={/^!?$/i} component={Home}></Router>
-        <Router default component={NotFound}/>
-      </RouterManager>
-    )
-  }
-}
+const App = () => (
+  <Router history={hashHistory}>
+    <Route path='/p/:id' component={Page} />
+    <Route path='/' component={Home} />
+    {/*<Route default component={NotFound} />*/}
+  </Router>
+)
 
-module.exports.App = connect()(App)
+module.exports.App = App
