@@ -161,7 +161,27 @@ __Propiedades__
 
 * `value` (`string`)
 
+__Ejemplo__
 
+```
+const textEditor = <TextEditor value={value}/>
+```
+
+
+<a name="component-previewwordinspect"></a>
+#### Componente `PreviewWordInspect`
+
+Muestra una breve descripción de una palabra.
+
+__Propiedades__
+
+* `word` (`string`)
+
+__Ejemplo__
+
+```
+const previewWordInspect = <PreviewWordInspect word={word}/>
+```
 
 
 
