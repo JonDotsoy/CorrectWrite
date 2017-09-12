@@ -78,8 +78,6 @@ __Propiedades__
             * `title`: Settings
             * `onClick`: Go to `/settings` url.
     - [`DocItem[]`](#component-docitem)
-        + `title`
-        + `lastEdit` (`date`)
 * [`DocEditor`](#component-doceditor) (path: `/p/:docKey`): Documento
     - [`Navbar`](#component-navbar)
         + `onClickBack`: go to `/` url
@@ -137,7 +135,7 @@ __Propiedades__
 * `word` ([`Word`](#type-word))
 
 <a name="component-navbar"></a>
-#### `Navbar` component
+#### `Navbar` componente
 
 __Propiedades__
 
@@ -145,3 +143,11 @@ __Propiedades__
 * `onClickBack` (`function`)
 * `menu` (`Array[[title: string, onClick: function]]`)
 
+<a name="component-docitem"></a>
+#### DocItem Componente
+
+__Propiedades__
+
+* `title` (`string`)
+* `lastEdit` (`date`)
+* `onClick` (`function`)
