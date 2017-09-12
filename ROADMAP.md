@@ -57,4 +57,15 @@ Servir como una herramienta para aquellas personas que desean mejorar su ortogra
 
 ### Componentes
 
+* [DocList][#component-doclist]
+* [Navbar][#component-navbar]
+* [DocItem][#component-docitem]
+* [DocEditor][#component-doceditor]
+* [TextEditor][#component-texteditor]
+* [Settings][#component-settings]
+* [WordInspect][#component-wordinspect]
+
+<span title="#component-doclist"></span>
 #### `DocList` Muestra un listado con todos los documentos creados
+
+
