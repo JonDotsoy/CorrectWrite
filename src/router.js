@@ -1,4 +1,5 @@
 const React = require('react')
+const {connect} = require('react-redux')
 
 class Router extends React.Component {
   render () {
@@ -16,14 +17,6 @@ class Router extends React.Component {
 class RouterManager extends React.Component {
   constructor (props) {
     super(props)
-
-    this.state = {
-      hash: this.localhash
-    }
-  }
-
-  get localhash () {
-    return location.hash.replace(/^#?/, '')
   }
 
   componentWillMount () {
@@ -31,7 +24,7 @@ class RouterManager extends React.Component {
   }
 
   handleChangeHash = (event) => {
-    this.setState({hash: this.localhash})
+    this.props.updateHashLocation(getHashLocation())
   }
 
   render () {
@@ -43,7 +36,7 @@ class RouterManager extends React.Component {
     )
 
     const SelectableRouter = props.children.find(
-      routerCpnt => (routerCpnt.props.hash && (routerCpnt.props.hash instanceof RegExp) && routerCpnt.props.hash.test(state.hash) === true)
+      routerCpnt => (routerCpnt.props.hash && (routerCpnt.props.hash instanceof RegExp) && routerCpnt.props.hash.test(props.hashLocation) === true)
     )
 
     if (SelectableRouter) return SelectableRouter
@@ -51,5 +44,19 @@ class RouterManager extends React.Component {
   }
 }
 
-module.exports.Router = Router
-module.exports.RouterManager = RouterManager
+module.exports.Router = connect()(Router)
+module.exports.RouterManager = connect(
+  store => ({hashLocation: getHashLocation()}),
+  dispatch => ({
+    updateHashLocation: (hashLocation) => {
+      dispatch({
+        type: 'UpdateHashLocation',
+        hashLocation,
+      })
+    }
+  }),
+)(RouterManager)
+
+function getHashLocation () {
+  return location.hash.replace(/^#?/, '')
+}

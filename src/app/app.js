@@ -1,4 +1,5 @@
 const React = require('react')
+const {connect} = require('react-redux')
 const {Router, RouterManager} = require('../router')
 const {Home} = require('../home/home')
 const {Page} = require('../page/page')
@@ -15,15 +16,14 @@ injectGlobal`
 
 class App extends React.Component {
   render () {
-    let con = /dsa/ig
     return (
       <RouterManager>
-        <Router hash={/^\/p\/(.+)$/i} component={Page}></Router>
-        <Router hash={/^$/i} component={Home}></Router>
+        <Router hash={/^!?\/p\/(.+)$/i} component={Page}></Router>
+        <Router hash={/^!?$/i} component={Home}></Router>
         <Router default component={NotFound}/>
       </RouterManager>
     )
   }
 }
 
-module.exports = App
+module.exports.App = connect()(App)

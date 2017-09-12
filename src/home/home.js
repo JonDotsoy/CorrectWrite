@@ -1,20 +1,29 @@
 const React = require('react')
+const {connect} = require('react-redux')
 const {NavBar} = require('../components/navbar/navbar')
 const {DocumentWrite} = require('../components/DocumentWrite/DocumentWrite')
+const {default: styled} = require('styled-components')
 
-const Home = () => (
+const ContainerWritingList = styled.div `
+`
+
+const Home = ({writingsList}) => (
   <div>
     <NavBar title='Writings' />
-    <DocumentWrite title='Write 0' lastEdit={new Date()} />
-    <DocumentWrite title='Lorem ipsum dolor sit' lastEdit={new Date()} />
-    <DocumentWrite title='Consectetur adipiscing elit.' lastEdit={new Date()} />
-    <DocumentWrite title='Mauris sit' lastEdit={new Date()} />
-    <DocumentWrite title='Amet pharetra eros' lastEdit={new Date()} />
-    <DocumentWrite title='Sit amet vehicula ligula.' lastEdit={new Date()} />
-    <DocumentWrite title='Vestibulum tristique' lastEdit={new Date()} />
-    <DocumentWrite title='Justo' lastEdit={new Date()} />
-    <DocumentWrite title='Class aptent taciti' lastEdit={new Date()} />
+    <ContainerWritingList>
+        {
+            writingsList
+            .map((writing, index) => 
+                <DocumentWrite key={index} {...writing} />)
+        }
+    </ContainerWritingList>
   </div>
 )
 
-module.exports.Home = Home
+module.exports.Home = connect(
+    store => ({
+        writingsList: store
+            .writingsList
+            .map((writingIndex) => (store.writings[writingIndex])),
+    })
+)(Home)
