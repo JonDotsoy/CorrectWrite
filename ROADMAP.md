@@ -102,8 +102,8 @@ __Propiedades__
 * [WordInspect](#component-wordinspect)
 * [Navbar](#component-navbar)
 * [DocItem](#component-docitem)
-* [PreviewWordInspect](#component-previewwordinspect)
 * [TextEditor](#component-texteditor)
+* [PreviewWordInspect](#component-previewwordinspect)
 
 <a name="component-doclist"></a>
 #### Componente Pagina `DocList` Muestra un listado con todos los documentos creados
@@ -151,3 +151,17 @@ __Propiedades__
 * `title` (`string`)
 * `lastEdit` (`date`)
 * `onClick` (`function`)
+
+
+<a name="component-texteditor"></a>
+#### Componente `TextEditor`
+Edita un texto y muestra palabras que coincidan con una coincidencia de palabras.
+
+__Propiedades__
+
+* `value` (`string`)
+
+
+
+
+
