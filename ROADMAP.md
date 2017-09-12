@@ -54,27 +54,27 @@ Servir como una herramienta para aquellas personas que desean mejorar su ortogra
 
 > __Componentes por Pagina__
 
-* `DocList` (path: `/`): Listado de Documentos
-    - `Navbar`
+* [`DocList`](#component-doclist) (path: `/`): Listado de Documentos
+    - [`Navbar`](#component-navbar)
         + `title`: Writings
         + `menu[]`
             * `title`: Settings
             * `onClick`: Go to `/settings` url.
-    - `DocItem[]`
+    - [`DocItem[]`](#component-docitem)
         + `title`
         + `lastEdit` (`date`)
-* `DocEditor` (path: `/p/:docKey`): Documento
-    - `Navbar`
+* [`DocEditor`](#component-doceditor) (path: `/p/:docKey`): Documento
+    - [`Navbar`](#component-navbar)
         + `onClickBack`: go to `/` url
         + `title`: `doc.title`
-    - `TextEditor`
+    - [`TextEditor`](#component-texteditor)
         + `value`: `doc.content`
-        + `PreviewWordInspect`
-* `Settings` (path: `/settings`): Configuraciones
-    - `Navbar`
+        + [`PreviewWordInspect`](#component-previewwordinspect)
+* [`Settings`](#component-settings) (path: `/settings`): Configuraciones
+    - [`Navbar`](#component-navbar)
         + `onClickBack`: go to `/` url
-* `WordInspect` (path: `/w/:wordKey`)
-    - `Navbar`
+* [`WordInspect`](#component-wordinspect) (path: `/w/:wordKey`)
+    - [`Navbar`](#component-navbar)
         + `onClickBack`: go to `/p/:docKey` url
         + `title`: `word`
     - `content`: `word.spec`
@@ -95,7 +95,4 @@ Servir como una herramienta para aquellas personas que desean mejorar su ortogra
 
 __Propiedades__
 
-* `docs` (`object`.<[Doc][type-doc]`.id`, [Doc][type-doc]>)
-
-
-[type-doc]: #type-doc
+* `docs` (`object`.<[Doc](#type-doc)`.id`, [Doc](#type-doc)>)
