@@ -69,30 +69,31 @@ __Propiedades__
 
 ### Árbol de componentes
 
-> __Componentes por Pagina__
-
 * [`DocList`](#component-doclist) (path: `/`): Listado de Documentos
     - [`Navbar`](#component-navbar)
         + `title`: Writings
         + `menu[]`
             * `title`: Settings
-            * `onClick`: Go to `/settings` url.
+            * `onClick`: Ir a la url `/settings`
     - [`DocItem[]`](#component-docitem)
 * [`DocEditor`](#component-doceditor) (path: `/p/:docKey`): Documento
     - [`Navbar`](#component-navbar)
-        + `onClickBack`: go to `/` url
         + `title`: `doc.title`
+        + `onClickBack`: Ir a la url `/`
     - [`TextEditor`](#component-texteditor)
         + `value`: `doc.content`
+    - _if_ `selected.word`
         + [`PreviewWordInspect`](#component-previewwordinspect)
+            * `word`: selected.word
 * [`Settings`](#component-settings) (path: `/settings`): Configuraciones
     - [`Navbar`](#component-navbar)
-        + `onClickBack`: go to `/` url
+        + `title`: Settings
+        + `onClickBack`: Ir a la url `/`
 * [`WordInspect`](#component-wordinspect) (path: `/w/:wordKey`)
     - [`Navbar`](#component-navbar)
-        + `onClickBack`: go to `/p/:docKey` url
-        + `title`: `word`
-    - `content`: `word.spec`
+        + `onClickBack`: Ir a la url `/p/:docKey`
+        + `title`: `word.title`
+    - `content`
 
 ### Componentes
 
