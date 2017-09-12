@@ -101,11 +101,11 @@ __Propiedades__
 * [DocList](#component-doclist)
 * [DocEditor](#component-doceditor)
 * [Settings](#component-settings)
+* [WordInspect](#component-wordinspect)
 * [Navbar](#component-navbar)
 * [DocItem](#component-docitem)
 * [PreviewWordInspect](#component-previewwordinspect)
 * [TextEditor](#component-texteditor)
-* [WordInspect](#component-wordinspect)
 
 <a name="component-doclist"></a>
 #### Pagina `DocList` Muestra un listado con todos los documentos creados
@@ -136,4 +136,12 @@ __Propiedades__
 
 * `word` ([`Word`](#type-word))
 
+<a name="component-navbar"></a>
+#### `Navbar` component
+
+__Propiedades__
+
+* `title` (`string`)
+* `onClickBack` (`function`)
+* `menu` (`Array[[title: string, onClick: function]]`)
 
