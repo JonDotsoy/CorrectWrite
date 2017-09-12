@@ -65,7 +65,7 @@ Servir como una herramienta para aquellas personas que desean mejorar su ortogra
 * [Settings][#component-settings]
 * [WordInspect][#component-wordinspect]
 
-<span title="#component-doclist"></span>
+<a name="#component-doclist"></a>
 #### `DocList` Muestra un listado con todos los documentos creados
 
 
