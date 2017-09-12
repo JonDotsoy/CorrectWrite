@@ -27,20 +27,16 @@ Servir como una herramienta para aquellas personas que desean mejorar su ortogra
 
 ### Estructura de base de datos
 
-- `words<id>` (`object`)
+- `words` (`object`)
     + `urls` (`object.<id>`)
         * `id` (`string`)
         * `url` (`string`)
         * `_context` (`object`)
         * `_pulled` (`boolean`)
-    + `indexSearch` (`Array[['word','id']]`)
+    + `indexSearch` (`Array[[word, id]]`)
         * `word` (`string`)
         * `id` (`string`)
-- `docs<id, Doc>` (`object`)
-    + `id` (`string`)
-    + `title` (`string`)
-    + `lastEdit` (`Date`)
-    + `content` (`string`)
+- `docs` (`object.<id,`[`Doc`](#type-doc)`>`)
 
 <a name="type-doc"></a>
 #### `Doc` Type
@@ -109,7 +105,7 @@ __Propiedades__
 
 __Propiedades__
 
-* `docs` (`object`.<[Doc](#type-doc)`.id`, [Doc](#type-doc)>)
+* `docs` (`object.<id,`[`Doc`](#type-doc)`>`)
 
 <a name="component-doceditor"></a>
 #### Pagina `DocEditor` Esta pagina visualiza/edita una documento
