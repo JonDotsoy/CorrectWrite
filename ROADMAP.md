@@ -112,12 +112,26 @@ __Propiedades__
 
 * `docs` (`object.<id,`[`Doc`](#type-doc)`>`)
 
+__Ejemplo__
+
+```
+const routeDocList = <Route path="/" componente={DocList}></Route>
+```
+
+
+
 <a name="component-doceditor"></a>
 #### Componente Pagina `DocEditor` Esta pagina visualiza/edita una documento
 
 __Propiedades__
 
 * `doc` ([Doc](#type-doc))
+
+__Ejemplo__
+
+```
+const routeDocEditor = <Route path="/p/:docId" componente={DocEditor}></Route>
+```
 
 
 <a name="component-settings"></a>
@@ -127,12 +141,26 @@ __Propiedades__
 
 * `settings` (`Array`<[`Setting`](#type-setting)>)
 
+__Ejemplo__
+
+```
+const routeSettings = <Route path="/settings" componente={Settings}></Route>
+```
+
+
 <a name="component-wordinspect"></a>
 #### Componente Pagina `WordInspect` Muestra la definición de una palabra
 
 __Propiedades__
 
 * `word` ([`Word`](#type-word))
+
+__Ejemplo__
+
+```
+const routeWordInspect = <Route path="/w/:data" componente={WordInspect}></Route>
+```
+
 
 <a name="component-navbar"></a>
 #### Componente `Navbar`
@@ -143,6 +171,13 @@ __Propiedades__
 * `onClickBack` (`function`)
 * `menu` (`Array[[title: string, onClick: function]]`)
 
+__Ejemplo__
+
+```
+const navbar = <Navbar title={title} onClickBack={handleOnClickBack} menu={menu}/>
+```
+
+
 <a name="component-docitem"></a>
 #### Componente `DocItem`
 
@@ -151,6 +186,12 @@ __Propiedades__
 * `title` (`string`)
 * `lastEdit` (`date`)
 * `onClick` (`function`)
+
+__Ejemplo__
+
+```
+const docItem = <DocItem title={doc.title} lastEdit={doc.lastEdit} onClick={handleOnClick}/>
+```
 
 
 <a name="component-texteditor"></a>
