@@ -77,8 +77,7 @@ __Propiedades__
         + `menu[]`
             * `title`: Settings
             * `onClick`: Go to `/settings` url.
-    - [`DocItem[]`](#component-docitem
-    - )
+    - [`DocItem[]`](#component-docitem)
 * [`DocEditor`](#component-doceditor) (path: `/p/:docKey`): Documento
     - [`Navbar`](#component-navbar)
         + `onClickBack`: go to `/` url
