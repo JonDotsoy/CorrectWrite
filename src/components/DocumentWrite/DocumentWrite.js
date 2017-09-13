@@ -1,8 +1,9 @@
 const React = require('react')
 const {diffHumanize} = require('../../../lib/utilTime')
-const {default:styled} = require('styled-components')
+const {default: styled} = require('styled-components')
+const {Link} = require('react-router-dom')
 
-const Container = styled.a`
+const LinkContainer = styled(Link)`
   display: block;
   height: 70px;
   border-bottom: solid 1px #C4C4C4;
@@ -25,7 +26,7 @@ const Title = styled.h3`
   padding-rigth: 16px;
 `
 
-const LabelDate = styled.span `
+const LabelDate = styled.span`
   font-family: Roboto;
   font-style: normal;
   font-weight: 300;
@@ -41,9 +42,9 @@ const LabelDate = styled.span `
 
 const today = new Date(2017, 8, 11, 24, 60, 60, 1000)
 
-const DocumentWrite = ({id, title, lastEdit}) => <Container href={`#!/p/${id}`}>
+const DocumentWrite = ({id, title, lastEdit}) => <LinkContainer to={`/p/${id}`}>
   <Title>{title}</Title>
   <LabelDate>Last edit {diffHumanize(lastEdit, today)} ago</LabelDate>
-</Container>
+</LinkContainer>
 
 module.exports.DocumentWrite = DocumentWrite
