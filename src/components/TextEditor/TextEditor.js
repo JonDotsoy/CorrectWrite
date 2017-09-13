@@ -29,5 +29,4 @@ const TextEditor = ({value}) => (
   </Container>
 )
 
-
 module.exports.TextEditor = TextEditor

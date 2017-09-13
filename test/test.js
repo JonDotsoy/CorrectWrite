@@ -1,6 +1,6 @@
 const {expect} = require('chai')
 
-describe('Scan Latters', () => {
+describe('Utilities', () => {
   it('Humanize Date', () => {
     const {diffHumanize, dateDiffHumanize} = require('../lib/utilTime')
 
